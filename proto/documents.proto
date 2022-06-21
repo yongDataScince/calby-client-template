@@ -1,0 +1,39 @@
+syntax = "proto3";
+package documents;
+
+enum FileType {
+  DOCX = 0;
+  XLSX = 1;
+  XLS = 3;
+  TXT = 4;
+}
+
+service Documents {
+  rpc SaveFiles(SaveFilesRequest) returns (SaveFilesResponse);
+  rpc GetFile(GetFileRequest) returns (GetFileResponse);
+}
+
+message SaveFilesRequest {
+  string user_id = 1;
+  string file_name = 3;
+  FileType doc_type = 4;
+  bytes data = 5;
+}
+
+message SaveFilesResponse {
+  bool successful = 1;
+  string file_id = 2;
+  string info_message = 3;
+}
+
+message GetFileRequest {
+  string user_id = 1;
+  FileType doc_type = 2;
+  string file_id = 3;
+}
+
+message GetFileResponse {
+  bytes data = 1;
+  string file_id = 2;
+  string file_name = 3;
+}
